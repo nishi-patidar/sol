@@ -1,3 +1,4 @@
+const currentUserId = localStorage.getItem('vibe_user_id');
 const navBtns = document.querySelectorAll('.nav-btn');
 const tabContents = document.querySelectorAll('.tab-content');
 
