@@ -793,7 +793,7 @@ renderNotes();
 async function loadNotesFromDB() {
     if (!currentUserId) return;
     try {
-        const response = await fetch('https://sol-l3vt.onrender.com/api/notes?userId=' + currentUserId);
+        const response = await fetch('https://sol-backend-7j1v.onrender.com' + currentUserId);
         const data = await response.json();
         notesList = data.map(dbNote => ({
             id: dbNote.id,
@@ -833,7 +833,7 @@ document.getElementById('auth-login-btn').addEventListener('click', async () => 
 document.getElementById('auth-register-btn').addEventListener('click', async () => {
     const u = document.getElementById('auth-username').value;
     const p = document.getElementById('auth-password').value;
-    const res = await fetch('https://sol-l3vt.onrender.com/api/register', {
+    const res = await fetch('https://sol-backend-7j1v.onrender.com', {
         method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({username: u, password: p})
     });
     const data = await res.json();
