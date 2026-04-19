@@ -1,4 +1,4 @@
-const currentUserId = localStorage.getItem('vibe_user_id');
+let currentUserId = localStorage.getItem('vibe_user_id');
 const navBtns = document.querySelectorAll('.nav-btn');
 const tabContents = document.querySelectorAll('.tab-content');
 
@@ -216,7 +216,7 @@ document.getElementById('add-activity-btn').addEventListener('click', async () =
         return;
     }
 
-    const currentUserId = localStorage.getItem('vibe_user_id');
+   
     if (!currentUserId) return;
 
     try {
@@ -852,7 +852,7 @@ loadActivities();
 loadNotesFromDB();
 loadHistoryFromDB();
 // --- USER ACCOUNTS & LOGIN ---
-let currentUserId = localStorage.getItem('vibe_user_id');
+const currentUserId = localStorage.getItem('vibe_user_id');
 
 if (!currentUserId) {
     document.getElementById('auth-modal').style.display = 'flex';
