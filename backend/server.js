@@ -11,7 +11,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' }));
 // 1. Make the uploads folder public so the frontend can see the images
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // 2. Set up where and how to save the images
 const uploadDir = path.join(__dirname, 'uploads');
@@ -19,12 +18,14 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
 
+app.use('/uploads', express.static(uploadDir));
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, uploadDir); // Using the strict absolute path here!
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname.replace(/\s+/g, '-'));
+        cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 const upload = multer({ storage: storage });

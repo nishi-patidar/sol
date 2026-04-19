@@ -60,7 +60,7 @@ notesList = [];
 
 async function saveHistory() {
     try {
-        await fetch('https://sol-backend-7j1v.onrender.com', {
+        await fetch('https://sol-backend-7j1v.onrender.com/api/history', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(activityHistory)
