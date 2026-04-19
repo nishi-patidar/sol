@@ -59,7 +59,7 @@ notesList = [];
 
 async function saveHistory() {
     try {
-        await fetch('https://sol-l3vt.onrender.com/api/history', {
+        await fetch('https://sol-backend-7j1v.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(activityHistory)
@@ -71,7 +71,7 @@ async function saveHistory() {
 
 async function loadHistoryFromDB() {
     try {
-        const response = await fetch('https://sol-l3vt.onrender.com/api/history?userId=' + currentUserId);
+        const response = await fetch('https://sol-backend-7j1v.onrender.com?userId=' + currentUserId);
         const data = await response.json();
         if (Object.keys(data).length > 0) {
             activityHistory = data;
