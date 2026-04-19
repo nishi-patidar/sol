@@ -209,6 +209,27 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.delete('/api/notes/:id', (req, res) => {
+    const noteId = req.params.id;
+    const sql = 'DELETE FROM notes WHERE id = ?';
+    db.query(sql, [noteId], (err, result) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        res.json({ message: 'Note deleted!' });
+    });
+});
+
+app.put('/api/notes/:id', (req, res) => {
+    const noteId = req.params.id;
+    const { is_completed } = req.body;
+    const completedVal = is_completed ? 1 : 0;
+    
+    const sql = 'UPDATE notes SET is_completed = ? WHERE id = ?';
+    db.query(sql, [completedVal, noteId], (err, result) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        res.json({ message: 'Note updated!' });
+    });
+});
+
+app.delete('/api/notes/:id', (req, res) => {
     db.query('DELETE FROM notes WHERE id = ?', [req.params.id], (err) => {
         if (err) return res.status(500).json(err);
         res.json({ message: 'Note deleted' });

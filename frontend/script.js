@@ -714,18 +714,30 @@ card.innerHTML = `
 `;
 
 const checkbox = card.querySelector('.note-checkbox');
-checkbox.addEventListener('click', () => {
-note.completed = !note.completed;
-saveNotes();
-renderNotes();
+checkbox.addEventListener('click', async () => {
+    const newStatus = !note.completed;
+    try {
+        await fetch(`https://sol-backend-7j1v.onrender.com/api/notes/${note.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ is_completed: newStatus })
+        });
+        note.completed = newStatus;
+        renderNotes();
+    } catch (error) { console.error(error); }
 });
 
 const deleteBtn = card.querySelector('.delete-note-btn');
-deleteBtn.addEventListener('click', () => {
-notesList = notesList.filter(n => n.id !== note.id);
-saveNotes();
-renderNotes();
+deleteBtn.addEventListener('click', async () => {
+    try {
+        await fetch(`https://sol-backend-7j1v.onrender.com/api/notes/${note.id}`, {
+            method: 'DELETE'
+        });
+        notesList = notesList.filter(n => n.id !== note.id);
+        renderNotes();
+    } catch (error) { console.error(error); }
 });
+
 const editBtn = document.createElement('button');
 editBtn.classList.add('edit-note-btn');
 editBtn.textContent = '✏️';
