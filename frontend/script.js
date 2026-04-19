@@ -825,6 +825,8 @@ document.getElementById('auth-login-btn').addEventListener('click', async () => 
     });
     const data = await res.json();
     if (data.userId) {
+        alert("Succcessfully logged in!");
+        
         localStorage.setItem('vibe_user_id', data.userId);
         window.location.reload(); // Refresh to load the app!
     } else { alert(data.error); }
@@ -838,6 +840,8 @@ document.getElementById('auth-register-btn').addEventListener('click', async () 
     });
     const data = await res.json();
     if (data.userId) {
+        alert("Successfully registered!");
+
         localStorage.setItem('vibe_user_id', data.userId);
         window.location.reload();
     } else { alert(data.error || 'Username taken'); }
