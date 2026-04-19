@@ -205,46 +205,7 @@ async function loadActivities() {
         console.error("Error loading activities from database:", error);
     }
 }
-document.getElementById('add-activity-btn').addEventListener('click', async () => {
-    const titleInput = document.getElementById('new-activity-input');
-    const timeInput = document.getElementById('new-activity-time');
-    const title = titleInput.value.trim();
-    const time = timeInput.value;
 
-    if (!title || !time) {
-        alert("Please enter both an activity and a time!");
-        return;
-    }
-
-   
-    if (!currentUserId) return;
-
-    try {
-        const res = await fetch(`https://sol-backend-7j1v.onrender.com/api/activities`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                user_id: currentUserId,
-                title: title,
-                scheduled_time: time,
-                activity_date: new Date().toISOString().split('T')[0]
-            })
-        });
-
-        if (res.ok) {
-            titleInput.value = '';
-            if (typeof loadActivities === 'function') {
-                loadActivities();
-            } else {
-                window.location.reload();
-            }
-        } else {
-            alert("Failed to save activity.");
-        }
-    } catch (error) {
-        alert("Error connecting to server.");
-    }
-});
 
 function renderActivities() {
 const list = document.getElementById('activity-list'); list.innerHTML = '';
