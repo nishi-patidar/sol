@@ -120,6 +120,19 @@ app.put('/api/activities/:id', (req, res) => {
     });
 });
 
+app.delete('/api/activities/:id', (req, res) => {
+    const activityId = req.params.id;
+    const sql = 'DELETE FROM activities WHERE id = ?';
+    
+    db.query(sql, [activityId], (err, result) => {
+        if (err) {
+            console.error("Error deleting activity:", err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json({ message: 'Activity permanently deleted!' });
+    });
+});
+
 // --- DELETE, GET & POST JOURNAL ENTRY ---
 
 app.get('/api/journal', (req, res) => {

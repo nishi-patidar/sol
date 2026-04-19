@@ -812,6 +812,7 @@ async function loadNotesFromDB() {
 loadActivities();
 loadNotesFromDB();
 loadHistoryFromDB();
+loadJournalFromDB();
 // --- USER ACCOUNTS & LOGIN ---
 if (!currentUserId) {
     document.getElementById('auth-modal').style.display = 'flex';
