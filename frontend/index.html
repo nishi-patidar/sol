@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>sol.</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="auth-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a; z-index: 9999; justify-content: center; align-items: center; color: white;">
+    <div style="background: #2a2a2a; padding: 40px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+        <h2>Welcome to VibeCheck</h2>
+        <input type="text" id="auth-username" placeholder="Username" style="display: block; width: 100%; margin: 20px 0 10px; padding: 12px; border-radius: 8px; border: none;">
+        <input type="password" id="auth-password" placeholder="Password" style="display: block; width: 100%; margin: 10px 0 20px; padding: 12px; border-radius: 8px; border: none;">
+        <button id="auth-login-btn" style="padding: 10px 20px; border: none; border-radius: 8px; background: #d98a83; color: white; cursor: pointer; font-weight: bold;">Login</button>
+        <button id="auth-register-btn" style="padding: 10px 20px; border: none; border-radius: 8px; background: #555; color: white; cursor: pointer;">Register</button>
+    </div>
+</div>
+<div id="app">
+<header class="app-header">
+<h1 class="app-logo">sol.</h1>
+</header>
+<main>
+<section id="activity-tab" class="tab-content active">
+<div class="stats-card">
+<span class="emoji">🔥</span>
+<div>
+<h2 id="streak-counter">0 Days</h2>
+<p>Current Streak</p>
+</div>
+</div>
+<div class="card graph-card monthwise">
+<div class="shared-month-header">
+<button id="prev-month-btn" class="nav-arrow">&lt;</button>
+<div id="current-month-display">Month Year</div>
+<button id="next-month-btn" class="nav-arrow">&gt;</button>
+</div>
+<div class="view-dots">
+<span class="dot active" id="dot-heatmap"></span>
+<span class="dot" id="dot-calendar"></span>
+</div>
+<div class="views-wrapper" id="views-wrapper">
+<div class="view-panel">
+<div id="contribution-graph" class="large-blocks"></div>
+</div>
+<div class="view-panel">
+<div class="cal-grid" id="calendar-grid"></div>
+</div>
+</div>
+</div>
+<div class="card add-activity-card">
+<h3>Add New Activity</h3>
+<div class="input-group">
+<input type="text" id="new-activity-input" placeholder="E.g., Morning Yoga">
+<input type="time" id="new-activity-time" value="07:00">
+<button id="add-activity-btn">+</button>
+</div>
+<div id="activity-list"></div>
+</div>
+</section>
+
+<section id="journal-tab" class="tab-content">
+<div class="card journal-top-card" id="journal-top-grid">
+<div class="top-header-layout">
+<div class="avatar-container" id="user-avatar-display">
+<span class="avatar-emoji" id="avatar-emoji">👧</span>
+</div>
+<div class="vibe-info">
+<h3>Today's Vibe ✨</h3>
+<div class="today-mood-display">
+<span id="top-mood-display" style="display:none;"></span>
+<p id="top-mood-empty">How are you feeling?</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="journal-compose" id="journal-compose">
+<div class="new-mood-selector">
+<div class="m-item selected" data-mood="happy" data-color="#d98a83" data-emoji="😃">
+<div class="m-circle" style="background:#d98a83">😃</div>
+</div>
+<div class="m-item" data-mood="good" data-color="#f4e3b5" data-emoji="🙂">
+<div class="m-circle" style="background:#f4e3b5">🙂</div>
+</div>
+<div class="m-item" data-mood="meh" data-color="#eecbce" data-emoji="😐">
+<div class="m-circle" style="background:#eecbce">😐</div>
+</div>
+<div class="m-item" data-mood="bad" data-color="#a78a7f" data-emoji="😞">
+<div class="m-circle" style="background:#a78a7f">😞</div>
+</div>
+<div class="m-item" data-mood="awful" data-color="#8c736a" data-emoji="😫">
+<div class="m-circle" style="background:#8c736a">😫</div>
+</div>
+</div>
+
+<h3 class="composer-title" style="margin-top: 30px;">What have you been up to?</h3>
+<div class="activity-categories">
+<div class="a-category" id="dynamic-activity-section" style="display: none;">
+<div class="a-cat-header"><span style="color:#d98a83;">●</span> Tracked Habits</div>
+<div class="a-grid" id="dynamic-habits-grid"></div>
+</div>
+
+<div class="a-category">
+<div class="a-cat-header"><span style="color:#d98a83;">●</span> Sleep</div>
+<div class="a-grid">
+<div class="a-item" data-act="sleep early" data-emoji="🛌">
+<div class="a-circle">🛌</div><span>sleep early</span>
+</div>
+<div class="a-item" data-act="good sleep" data-emoji="💤">
+<div class="a-circle">💤</div><span>good sleep</span>
+</div>
+<div class="a-item" data-act="medium sleep" data-emoji="🛏️">
+<div class="a-circle">🛏️</div><span>medium sleep</span>
+</div>
+<div class="a-item" data-act="bad sleep" data-emoji="🥱">
+<div class="a-circle">🥱</div><span>bad sleep</span>
+</div>
+</div>
+</div>
+
+<div class="a-category">
+<div class="a-cat-header"><span style="color:#d98a83;">●</span> Social</div>
+<div class="a-grid">
+<div class="a-item" data-act="alone time" data-emoji="🎧">
+<div class="a-circle">🎧</div><span>alone time</span>
+</div>
+<div class="a-item" data-act="family" data-emoji="👨‍👩‍👧">
+<div class="a-circle">👨‍👩‍👧</div><span>family</span>
+</div>
+<div class="a-item" data-act="friends" data-emoji="👥">
+<div class="a-circle">👥</div><span>friends</span>
+</div>
+<div class="a-item" data-act="date" data-emoji="❤️">
+<div class="a-circle">❤️</div><span>date</span>
+</div>
+<div class="a-item" data-act="party" data-emoji="🎉">
+<div class="a-circle">🎉</div><span>party</span>
+</div>
+</div>
+</div>
+
+<div class="a-category">
+<div class="a-cat-header"><span style="color:#d98a83;">●</span> Hobbies</div>
+<div class="a-grid">
+<div class="a-item" data-act="reading" data-emoji="📚">
+<div class="a-circle">📚</div><span>reading</span>
+</div>
+<div class="a-item" data-act="painting" data-emoji="🎨">
+<div class="a-circle">🎨</div><span>painting</span>
+</div>
+<div class="a-item" data-act="dancing" data-emoji="💃">
+<div class="a-circle">💃</div><span>dancing</span>
+</div>
+<div class="a-item" data-act="gaming" data-emoji="🎮">
+<div class="a-circle">🎮</div><span>gaming</span>
+</div>
+<div class="a-item" data-act="sport" data-emoji="🏃">
+<div class="a-circle">🏃</div><span>sport</span>
+</div>
+<div class="a-item" data-act="movies" data-emoji="🍿">
+<div class="a-circle">🍿</div><span>movies</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="input-group" style="margin-top: 25px;">
+<textarea id="journal-text-snippet" placeholder="Add a daily note..." rows="3"></textarea>
+</div>
+
+<div class="journal-actions" style="justify-content: flex-end;">
+<label for="attach-photo-input" id="add-photo-btn-label">
+<span class="photo-icon">📷</span>
+<span id="photo-text">Add Photo</span>
+</label>
+<input type="file" id="attach-photo-input" accept="image/*" style="display:none;">
+<button id="save-journal-btn" class="primary-action-btn">Save Vibe</button>
+</div>
+</div>
+
+<div id="journal-feed" class="new-journal-feed"></div>
+</section>
+
+<section id="notes-tab" class="tab-content">
+<div class="card notes-compose">
+<input type="text" id="note-title" placeholder="Brain dump here..." class="spaced-input">
+<div class="note-options">
+<select id="note-priority">
+<option value="low">✨ Low</option>
+<option value="med">⭐️ Med</option>
+<option value="high">🚨 High</option>
+</select>
+<input type="date" id="note-deadline">
+</div>
+<button id="add-note-btn" style="width: 100%; margin-top: 5px;">Pin Note</button>
+</div>
+
+<div id="notes-sections-container">
+<div class="note-section" id="section-delayed" style="display: none;">
+<h4 class="section-title">Delayed ⚠️</h4>
+<div id="list-delayed"></div>
+</div>
+
+<div class="note-section" id="section-soon" style="display: none;">
+<h4 class="section-title">Deadline Soon ⏰</h4>
+<div id="list-soon"></div>
+</div>
+
+<div class="note-section" id="section-general" style="display: none;">
+<h4 class="section-title">Pinned Notes 📌</h4>
+<div id="list-general"></div>
+</div>
+
+<div class="note-section" id="section-completed" style="display: none;">
+<h4 class="section-title">Completed ✅</h4>
+<div id="list-completed"></div>
+</div>
+</div>
+</section>
+</main>
+
+<nav class="bottom-nav">
+<button class="nav-btn active" data-target="activity-tab">
+<span class="nav-icon">📊</span>
+<span>Track</span>
+</button>
+<button class="nav-btn" data-target="journal-tab">
+<span class="nav-icon">📖</span>
+<span>Journal</span>
+</button>
+<button class="nav-btn" data-target="notes-tab">
+<span class="nav-icon">📌</span>
+<span>Notes</span>
+</button>
+</nav>
+
+<div id="activity-modal" class="modal-overlay">
+<div class="modal-content card">
+<h3>Edit Activity ✨</h3>
+<div class="input-group-vertical">
+<label>Activity Name</label>
+<input type="text" id="edit-activity-title">
+<label>Scheduled Time</label>
+<input type="time" id="edit-activity-time">
+</div>
+<div class="activity-stats">
+<h4>Last 7 Days</h4>
+<div class="mini-chart" id="modal-mini-chart"></div>
+</div>
+<button id="delete-activity-btn" class="danger-btn">🗑️ Delete Activity</button>
+<div class="modal-actions">
+<button id="save-activity-btn">Save</button>
+<button id="close-modal-btn" class="secondary-btn">Close</button>
+</div>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
