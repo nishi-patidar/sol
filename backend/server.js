@@ -135,21 +135,52 @@ app.delete('/api/activities/:id', (req, res) => {
 
 // --- DELETE, GET & POST JOURNAL ENTRY ---
 
+// --- GET JOURNAL ENTRIES ---
 app.get('/api/journal', (req, res) => {
-    db.query('SELECT * FROM journal_entries WHERE user_id = ? ORDER BY id DESC', [req.query.userId], (err, results) => {
-        if (err) return res.status(500).json(err);
+    const userId = req.query.userId;
+    if (!userId) return res.status(400).json({ error: "Missing user ID" });
+
+    const sql = 'SELECT * FROM journal WHERE user_id = ? ORDER BY id DESC';
+    db.query(sql, [userId], (err, results) => {
+        if (err) {
+            console.error("Error fetching journal:", err);
+            return res.status(500).json({ error: 'Database error' });
+        }
         res.json(results);
     });
 });
 
+// --- POST NEW JOURNAL ENTRY ---
 app.post('/api/journal', (req, res) => {
-    const { user_id, date, time, moodObj, activities, note, image } = req.body;
-    const sql = 'INSERT INTO journal_entries (user_id, entry_date, entry_time, mood, mood_emoji, mood_color, activities, note, image_data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const actStr = JSON.stringify(activities);
+    // Unpack the exact data the frontend is sending
+    const { id, user_id, date, time, moodObj, activities, note, image } = req.body;
     
-    db.query(sql, [user_id || 1, date, time, moodObj.mood, moodObj.emoji, moodObj.color, actStr, note, image], (err, result) => {
-        if (err) return res.status(500).json(err);
-        res.json({ id: result.insertId });
+    // Convert the activities array into a string so SQL can store it
+    const activitiesStr = JSON.stringify(activities || []);
+    
+    const sql = `INSERT INTO journal 
+        (id, user_id, entry_date, entry_time, mood, mood_emoji, mood_color, activities, note, image_data) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        
+    const values = [
+        id, 
+        user_id, 
+        date, 
+        time, 
+        moodObj ? moodObj.mood : 'happy', 
+        moodObj ? moodObj.emoji : '😃', 
+        moodObj ? moodObj.color : '#d98a83', 
+        activitiesStr, 
+        note || '', 
+        image || ''
+    ];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error("Error saving journal:", err);
+            return res.status(500).json({ error: 'Failed to save to database' });
+        }
+        res.json({ message: 'Journal saved successfully!' });
     });
 });
 
