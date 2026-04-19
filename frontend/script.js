@@ -86,7 +86,7 @@ async function saveJournal() {
     try {
         const latestEntry = journalEntries[0];
         latestEntry.user_id = currentUserId;
-        await fetch('https://sol-l3vt.onrender.com/api/journal', {
+        await fetch('https://sol-backend-7j1v.onrender.com/api/journal', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(latestEntry)
@@ -100,7 +100,7 @@ async function saveNotes() {
     try {
         const latestNote = notesList[0];
         latestNote.user_id = currentUserId;
-        await fetch('https://sol-l3vt.onrender.com/api/notes', {
+        await fetch('https://sol-backend-7j1v.onrender.com/api/notes', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(latestNote)
@@ -188,7 +188,7 @@ document.getElementById('next-month-btn').addEventListener('click', (e) => { e.p
 async function loadActivities() {
     if (!currentUserId) return;
     try {
-        const response = await fetch('https://sol-l3vt.onrender.com/api/activities?userId=' + currentUserId);
+        const response = await fetch('https://sol-backend-7j1v.onrender.com/api/activities?userId=' + currentUserId);
         const data = await response.json();
 
         activities = data.map(dbItem => ({
@@ -227,7 +227,7 @@ tickBtn.addEventListener('click', async (e) => {
     const newTickedState = !activity.ticked;
 
     try {
-        await fetch(`https://sol-l3vt.onrender.com/api/activities/${activity.id}`, {
+        await fetch(`https://sol-backend-7j1v.onrender.com/api/activities/${activity.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ is_ticked: newTickedState })
@@ -270,7 +270,7 @@ document.getElementById('add-activity-btn').addEventListener('click', async (e) 
     };
 
     try {
-        const response = await fetch('https://sol-l3vt.onrender.com/api/activities', {
+        const response = await fetch('https://sol-backend-7j1v.onrender.com/api/activities', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newActivity)
@@ -329,7 +329,7 @@ document.getElementById('activity-modal').classList.remove('active');
 document.getElementById('delete-activity-btn').addEventListener('click', async (e) => {
     e.preventDefault();
     try {
-        await fetch(`https://sol-l3vt.onrender.com/api/activities/${currentEditingId}`, {
+        await fetch(`https://sol-backend-7j1v.onrender.com/api/activities/${currentEditingId}`, {
             method: 'DELETE'
         });
 
@@ -464,7 +464,7 @@ const formData = new FormData();
 formData.append('photo', file);
 
 try {
-const response = await fetch('https://sol-l3vt.onrender.com/api/upload', {
+const response = await fetch('https://sol-backend-7j1v.onrender.com/api/upload', {
 method: 'POST',
 body: formData
 });
@@ -548,7 +548,7 @@ renderTopCard();
 
 async function loadJournalFromDB() {
     try {
-        const response = await fetch('https://sol-l3vt.onrender.com/api/journal?userId=' + currentUserId);
+        const response = await fetch('https://sol-backend-7j1v.onrender.com/api/journal?userId=' + currentUserId);
         const data = await response.json();
         
         journalEntries = data.map(entry => ({
@@ -820,7 +820,7 @@ if (!currentUserId) {
 document.getElementById('auth-login-btn').addEventListener('click', async () => {
     const u = document.getElementById('auth-username').value;
     const p = document.getElementById('auth-password').value;
-    const res = await fetch('https://sol-l3vt.onrender.com/api/login', {
+    const res = await fetch('https://sol-backend-7j1v.onrender.com/api/login', {
         method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({username: u, password: p})
     });
     const data = await res.json();
