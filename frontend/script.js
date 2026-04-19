@@ -647,15 +647,22 @@ feed.appendChild(card);
 });
 
 feed.querySelectorAll('.delete-journal-btn').forEach(btn => {
-btn.addEventListener('click', (e) => {
-const entryId = parseInt(e.target.dataset.id);
-journalEntries = journalEntries.filter(e => e.id !== entryId);
-saveJournal();
-renderJournalFeed();
-renderTopCard();
+    btn.addEventListener('click', async (e) => {
+        const entryId = parseInt(e.target.dataset.id);
+        
+        try {
+            await fetch(`https://sol-backend-7j1v.onrender.com/api/journal/${entryId}`, {
+                method: 'DELETE'
+            });
+            
+            journalEntries = journalEntries.filter(e => e.id !== entryId);
+            renderJournalFeed();
+            renderTopCard();
+        } catch (error) {
+            console.error(error);
+        }
+    });
 });
-});
-}
 
 function categorizeNote(note) {
 if (note.completed) return 'completed';

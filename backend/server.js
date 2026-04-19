@@ -185,9 +185,15 @@ app.post('/api/journal', (req, res) => {
 });
 
 app.delete('/api/journal/:id', (req, res) => {
-    db.query('DELETE FROM journal_entries WHERE id = ?', [req.params.id], (err) => {
-        if (err) return res.status(500).json(err);
-        res.json({ message: 'Journal deleted' });
+    const entryId = req.params.id;
+    const sql = 'DELETE FROM journal WHERE id = ?';
+    
+    db.query(sql, [entryId], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json({ message: 'Journal entry deleted!' });
     });
 });
 
