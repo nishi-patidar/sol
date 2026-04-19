@@ -27,10 +27,8 @@ const upload = multer({ storage: storage });
 // 3. The new route to catch the incoming photo
 app.post('/api/upload', upload.single('photo'), (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-    // Send back the tiny URL where the image can be viewed
-    res.json({ imageUrl: `http://127.0.0.1:5000/uploads/${req.file.filename}` });
+    res.json({ imageUrl: `https://sol-backend-7j1v.onrender.com/uploads/${req.file.filename}` });
 });
-
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
