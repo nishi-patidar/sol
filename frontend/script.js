@@ -73,7 +73,7 @@ async function saveHistory() {
 async function loadHistoryFromDB() {
     if (!currentUserId) return;
     try {
-        const response = await fetch('https://sol-backend-7j1v.onrender.com?userId=' + currentUserId);
+        const response = await fetch('https://sol-backend-7j1v.onrender.com/api/history?userId=' + currentUserId);
         const data = await response.json();
         if (Object.keys(data).length > 0) {
             activityHistory = data;
