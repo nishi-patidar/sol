@@ -220,7 +220,7 @@ document.getElementById('add-activity-btn').addEventListener('click', async () =
     if (!currentUserId) return;
 
     try {
-        const res = await fetch(`${API_URL}/api/activities`, {
+        const res = await fetch(`https://sol-backend-7j1v.onrender.com/api/activities`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -834,7 +834,7 @@ renderNotes();
 async function loadNotesFromDB() {
     if (!currentUserId) return;
     try {
-        const response = await fetch('https://sol-backend-7j1v.onrender.com' + currentUserId);
+        const response = await fetch('https://sol-backend-7j1v.onrender.com/api/notes?userId=' + currentUserId);
         const data = await response.json();
         notesList = data.map(dbNote => ({
             id: dbNote.id,
@@ -852,8 +852,6 @@ loadActivities();
 loadNotesFromDB();
 loadHistoryFromDB();
 // --- USER ACCOUNTS & LOGIN ---
-const currentUserId = localStorage.getItem('vibe_user_id');
-
 if (!currentUserId) {
     document.getElementById('auth-modal').style.display = 'flex';
 }
