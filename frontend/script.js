@@ -70,6 +70,7 @@ async function saveHistory() {
 }
 
 async function loadHistoryFromDB() {
+    if (!currentUserId) return;
     try {
         const response = await fetch('https://sol-backend-7j1v.onrender.com?userId=' + currentUserId);
         const data = await response.json();
@@ -185,6 +186,7 @@ document.getElementById('prev-month-btn').addEventListener('click', (e) => { e.p
 document.getElementById('next-month-btn').addEventListener('click', (e) => { e.preventDefault(); currentViewDate.setMonth(currentViewDate.getMonth() + 1); updateActivityViews(); });
 
 async function loadActivities() {
+    if (!currentUserId) return;
     try {
         const response = await fetch('https://sol-l3vt.onrender.com/api/activities?userId=' + currentUserId);
         const data = await response.json();
@@ -789,6 +791,7 @@ updateActivityViews();
 renderTopCard();
 renderNotes();
 async function loadNotesFromDB() {
+    if (!currentUserId) return;
     try {
         const response = await fetch('https://sol-l3vt.onrender.com/api/notes?userId=' + currentUserId);
         const data = await response.json();

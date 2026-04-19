@@ -8,7 +8,11 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: ["https://sol-pi-gules.vercel.app", "http://127.0.0.1:5500"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 app.use(bodyParser.json({ limit: '50mb' }));
 // 1. Make the uploads folder public so the frontend can see the images
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
