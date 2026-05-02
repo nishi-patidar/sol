@@ -6,27 +6,28 @@
 
 ## 🌟 Features
 
-- Dynamic Mood Tracking: A high-contrast interface to log daily vibes with custom-selected palettes (off-white, terracotta, and butter yellow). 🎨
-- Journaling with Persistence: Full CRUD functionality allowing users to save, view, and delete journal entries, including support for photo uploads. 📸
+- Dynamic Mood Tracking 🎨: A high-contrast interface to log daily vibes with custom-selected palettes (off-white, terracotta, and butter yellow).
 
-- Unified Activity Tracker: Tracks daily habits and history through a clean, responsive card-based layout. 🗓️
+- Journaling with Persistence 📸: Full CRUD functionality allowing users to save, view, and delete journal entries, including support for photo uploads.
+
+- Unified Activity Tracker 🗓️: Tracks daily habits and history through a clean, responsive card-based layout.
   
-- PWA Integration: Fully installable on mobile devices, providing a native-app experience without the overhead of a traditional app store download. 📱
+- PWA Integration 📱: Fully installable on mobile devices, providing a native-app experience without the overhead of a traditional app store download.
 
 ## 💻 Tech Stack
 
-- Frontend: React.js, Tailwind CSS ⚛️
-- Backend: Node.js, Express.js 🌐
-- Database: TiDB (MySQL-Compatible Cloud Database) ☁️
-- Deployment: Vercel (Frontend), Render (Backend) 🚀
+- ⚛️ Frontend: React.js, Tailwind CSS 
+- 🌐 Backend: Node.js, Express.js
+- ☁️ Database: TiDB (MySQL-Compatible Cloud Database) 
+- 🚀 Deployment: Vercel (Frontend), Render (Backend) 
 
 ## ⚙️ Engineering Highlights
 
-- Cloud Connectivity: Successfully migrated from local storage to a live TiDB cloud instance, ensuring data survives across devices and sessions. 🔗
+- 🔗 Cloud Connectivity: Successfully migrated from local storage to a live TiDB cloud instance, ensuring data survives across devices and sessions.
   
-- Optimized Performance: Implemented asynchronous state updates to ensure the UI remains snappy and "frozen-free" during database operations. ⚡
+- ⚡ Optimized Performance: Implemented asynchronous state updates to ensure the UI remains snappy and "frozen-free" during database operations. 
   
-- Responsive Design: Architected with a mobile-first approach, ensuring seamless transitions between desktop browsing and the "installed" mobile app experience. 🧭
+- 🧭 Responsive Design: Architected with a mobile-first approach, ensuring seamless transitions between desktop browsing and the "installed" mobile app experience.
 
  🚀 Getting Started
 
