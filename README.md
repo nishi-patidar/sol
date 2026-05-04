@@ -2,8 +2,7 @@
 
 "sol." is a minimalist, full-stack wellness application designed to simplify self-reflection. Born from the realization that most habit-tracking apps are cluttered and overwhelming, "sol." prioritizes a "calm-tech" aesthetic inspired by Pinterest-style minimalism and intuitive user experience. ✨
 
-#currently wokring on this project
-
+*currently wokring on this project*
 ## 🌟 Features
 
 - Dynamic Mood Tracking 🎨: A high-contrast interface to log daily vibes with custom-selected palettes (off-white, terracotta, and butter yellow).
